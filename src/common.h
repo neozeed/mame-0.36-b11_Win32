@@ -8,7 +8,7 @@
 
 #ifndef COMMON_H
 #define COMMON_H
-
+typedef unsigned int UINT32;
 struct RomModule
 {
 	const char *name;	/* name of the file to load */

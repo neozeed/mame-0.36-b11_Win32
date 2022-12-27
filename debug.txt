@@ -1,0 +1,2 @@
+MAME32: IDirectDraw.SetDisplayMode failed error=80004001
+MAME32: IDirectDraw.SetDisplayMode failed error=80004001

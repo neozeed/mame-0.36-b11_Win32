@@ -28,8 +28,8 @@
 #include "MAME32.h"
 #include "M32Util.h"
 #include "uclock.h"
-#include "DDrawDisplay.h"
-#include "DDrawWindow.h"
+//#include "DDrawDisplay.h"
+//#include "DDrawWindow.h"
 #include "NullSound.h"
 
 #ifndef NOSEAL
@@ -101,7 +101,7 @@ int osd_init()
     if (options->is_window)
         bUseWindow = TRUE;
 
-    if (options->is_window && !options->window_ddraw)
+//    if (options->is_window && !options->window_ddraw)
         bUseDirectDraw = FALSE;
 
     if (options->sound == SOUND_NONE)
@@ -135,17 +135,25 @@ int osd_init()
     */
     MAME32App_init(options);
 
+#if 0
     if (bUseDirectDraw == FALSE)
         MAME32App.m_pDisplay = &GDIDisplay;
     else
     if (bUseWindow == TRUE)
         MAME32App.m_pDisplay = &DDrawWindowDisplay;
     else
+#else
+	if(1==1)
+	   MAME32App.m_pDisplay = &GDIDisplay;
+#endif
 #if defined(MAME_DEBUG)
         /* don't do fullscreen debugging */
         MAME32App.m_pDisplay = &GDIDisplay;
 #else
-        MAME32App.m_pDisplay = &DDrawDisplay;
+//        MAME32App.m_pDisplay = &DDrawDisplay;
+//RISC machines and newer sdk's seem ot just work better with GDI
+// And windows on arm on PI has no DX... :(
+        MAME32App.m_pDisplay = &GDIDisplay;
 #endif
 
     if (bNoSound == TRUE)

@@ -13,6 +13,11 @@
 // Generated from the TEXTINCLUDE 2 resource.
 //
 #include "afxres.h"
+//msvc 4 fix.. yeha... RISC
+#ifndef PBS_SMOOTH
+#define PBS_SMOOTH   1
+#define TVS_FULLROWSELECT 4096
+#endif
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS

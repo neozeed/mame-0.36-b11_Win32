@@ -170,10 +170,13 @@ BOOL DirectDraw_Initialize()
 
     // If the function is there, call it to enumerate all display devices
     // attached to the desktop, and any non-display DirectDraw devices.
-    if (lpDDEnumEx)
+//MSVC4 says no
+#if 0
+	if (lpDDEnumEx)
         lpDDEnumEx(DDEnumInfo, NULL, 
                    DDENUM_ATTACHEDSECONDARYDEVICES | DDENUM_DETACHEDSECONDARYDEVICES );
     else
+#endif
     {
         LPDIRECTDRAWENUMERATE lpDDEnum;
 

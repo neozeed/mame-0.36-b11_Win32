@@ -8,13 +8,13 @@ VERSION = -DVERSION=36
 BETA_VERSION = -DBETA_VERSION=11
 
 # uncomment this to build an release canidate version
-# RELEASE_CANDIDATE = -DRELEASE_CANDIDATE=1
+RELEASE_CANDIDATE = -DRELEASE_CANDIDATE=1
 
 # uncomment out the MAME_DEBUG = line to build a version of MAME for debugging games
 # MAME_DEBUG = -DMAME_DEBUG
 
 # if MAME_MMX is defined, MMX will be compiled in; requires the Intel compiler and libmmtck.lib
-MAME_MMX = -DMAME_MMX
+# MAME_MMX = -DMAME_MMX
 
 # if MAME_NET is defined, network support will be compiled in; requires wsock32.lib
 # MAME_NET = -DMAME_NET
@@ -23,10 +23,10 @@ MAME_MMX = -DMAME_MMX
 USE_FASTCALL = 1
 
 # uncomment to build without SEAL
-# NOSEAL =
+NOSEAL =
 
 # uncomment to build without MIDAS
-# NOMIDAS =
+NOMIDAS =
 
 # uncomment to build Helpfiles
 # HELPFILE = Mame32.hlp
@@ -58,7 +58,7 @@ TINY_OBJS = obj/drivers/rthunder.o obj/vidhrdw/rthunder.o
 # NEOMAME = 1
 
 # uncomment next line to use Assembler 68k engine
-X86_ASM_68K = 1
+# X86_ASM_68K = 1
 
 # uncomment next line to use Assembler z80 engine
 # X86_ASM_Z80 = 1
@@ -134,7 +134,8 @@ AUDIOFLAGS = $(AUDIOFLAGS) -DNOMIDAS
 CFLAGSGLOBAL = -Gr -I. -Isrc -Iobj/cpu/m68000 -Isrc/cpu/m68000 -Isrc/Win32 \
                -IZLIB $(AUDIOFLAGS) -W3 -nologo -MT \
                $(MAME_DEBUG) $(RELEASE_CANDIDATE) $(BETA_VERSION) $(VERSION) \
-               $(MAME_NET) $(MAME_MMX) $(HAS_CPUS) $(HAS_SOUND) $(M68KDEF)
+               $(MAME_NET) $(MAME_MMX) $(HAS_CPUS) $(HAS_SOUND) $(M68KDEF) \
+			-Idx /MT
 
 CFLAGSDEBUG = -Zi -Od
 
@@ -897,7 +898,7 @@ clean:
 	del obj\sndhrdw\*.o
 	del obj\Win32\*.o
 	del obj\Win32\*.res
-        del obj
+        del obj\*.o
 	del mame32.exe
 !ifdef HELPFILE
 	del mame32.hlp

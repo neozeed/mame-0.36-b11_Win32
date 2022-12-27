@@ -2573,7 +2573,8 @@ static void PickFont(void)
         SetWindowFont(hwndList, hFont, TRUE);
         SetWindowFont(hTreeView, hFont, TRUE);
         ListView_SetTextColor(hwndList, textColor);
-        TreeView_SetTextColor(hTreeView,textColor);
+//not avail in msvc4
+//      TreeView_SetTextColor(hTreeView,textColor);
         SetListFontColor(cf.rgbColors);
         SetWindowFont(GetDlgItem(hPicker, IDC_HISTORY), hFont, FALSE);
         ResetListView();
@@ -4805,8 +4806,8 @@ static void AdjustMetrics(void)
         textColor = RGB(240, 240, 240);
 
     ListView_SetTextColor(hwndList, textColor);
-    TreeView_SetBkColor(hTreeView, GetSysColor(COLOR_WINDOW));
-    TreeView_SetTextColor(hTreeView, textColor);
+//    TreeView_SetBkColor(hTreeView, GetSysColor(COLOR_WINDOW));
+//    TreeView_SetTextColor(hTreeView, textColor);
     GetWindowArea(&area);
 
     offX = area.x + area.width;

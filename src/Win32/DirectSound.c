@@ -919,6 +919,15 @@ static void set_vol(int channel,int volume)
 
     if (volume != -1)
 	{
+//crappy old dx?!
+#ifndef DSBVOLUME_MIN
+#define DSBPAN_LEFT                 -10000
+#define DSBPAN_CENTER               0
+#define DSBPAN_RIGHT                10000
+
+#define DSBVOLUME_MIN               -10000
+#define DSBVOLUME_MAX               0
+#endif
 		fvol = 1-pow(((double)100-((double)volume))
 			/(double)100,(double)20);
 		vol = (long)((DSBVOLUME_MIN)+fvol*((DSBVOLUME_MAX)-(DSBVOLUME_MIN))+attenuation*100);
