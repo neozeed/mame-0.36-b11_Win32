@@ -342,7 +342,7 @@ static BOOL DrawDIB( HWND hWnd, HDC hDC, HGLOBAL hDIB, HPALETTE hPal )
 
 
 
-BOOL GetScreenShotRect( HWND hWnd, RECT *pRect, BOOL restrict )
+BOOL GetScreenShotRect( HWND hWnd, RECT *pRect, BOOL restricted )
 {
     int     destX, destY;
     int     destW, destH;
@@ -367,7 +367,7 @@ BOOL GetScreenShotRect( HWND hWnd, RECT *pRect, BOOL restrict )
     rHeight = (rect.bottom - rect.top);
 
     /* Limit the screen shot to max height of 254 */
-    if (restrict == TRUE && rHeight > 264)
+    if (restricted == TRUE && rHeight > 264)
     {
         rect.bottom = rect.top + 264;
         rHeight = 264;

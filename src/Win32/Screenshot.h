@@ -33,7 +33,7 @@ typedef struct _mybitmapinfo {
 BOOL LoadScreenShot(int nGame, int nType);
 BOOL DrawScreenShot(HWND hWnd);
 void FreeScreenShot(void);
-BOOL GetScreenShotRect(HWND hWnd, RECT *pRect, BOOL restrict);
+BOOL GetScreenShotRect(HWND hWnd, RECT *pRect, BOOL restricted);
 BOOL ScreenShotLoaded(void);
 
 BOOL    LoadDIB(LPCTSTR filename, HGLOBAL *phDIB, HPALETTE *pPal, BOOL flyer);

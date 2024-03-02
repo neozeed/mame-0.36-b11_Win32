@@ -34,6 +34,127 @@
 #include <stdlib.h> /* For malloc and free */
 #include <commctrl.h>
 
+/////
+#if _MSC_VER < 1200
+
+//#if 1
+#define LPTV_ITEMW              LPTVITEMW
+#define LPTV_ITEMA              LPTVITEMA
+#define TV_ITEMW                TVITEMW
+#define TV_ITEMA                TVITEMA
+//#else
+//#define tagTVITEMA             _TV_ITEMA
+//#define    TVITEMA              TV_ITEMA
+//#define  LPTVITEMA            LPTV_ITEMA
+//#define tagTVITEMW             _TV_ITEMW
+//#define    TVITEMW              TV_ITEMW
+//#define  LPTVITEMW            LPTV_ITEMW
+//#endif
+
+#define LPTV_ITEM               LPTVITEM
+#define TV_ITEM                 TVITEM
+#define TVITEM TVITEMA
+
+typedef struct tagTVITEMA {
+    UINT      mask;
+    HTREEITEM hItem;
+    UINT      state;
+    UINT      stateMask;
+    LPSTR     pszText;
+    int       cchTextMax;
+    int       iImage;
+    int       iSelectedImage;
+    int       cChildren;
+    LPARAM    lParam;
+} TVITEMA, *LPTVITEMA;
+
+typedef struct tagTVITEMW {
+    UINT      mask;
+    HTREEITEM hItem;
+    UINT      state;
+    UINT      stateMask;
+    LPWSTR    pszText;
+    int       cchTextMax;
+    int       iImage;
+    int       iSelectedImage;
+    int       cChildren;
+    LPARAM    lParam;
+} TVITEMW, *LPTVITEMW;
+
+
+
+#define _WIN32_IE 0x300
+#if (_WIN32_IE >= 0x0300)
+#define LPTV_INSERTSTRUCTA      LPTVINSERTSTRUCTA
+#define LPTV_INSERTSTRUCTW      LPTVINSERTSTRUCTW
+#define TV_INSERTSTRUCTA        TVINSERTSTRUCTA
+#define TV_INSERTSTRUCTW        TVINSERTSTRUCTW
+#else
+#define tagTVINSERTSTRUCTA     _TV_INSERTSTRUCTA
+#define    TVINSERTSTRUCTA      TV_INSERTSTRUCTA
+#define  LPTVINSERTSTRUCTA    LPTV_INSERTSTRUCTA
+#define tagTVINSERTSTRUCTW     _TV_INSERTSTRUCTW
+#define    TVINSERTSTRUCTW      TV_INSERTSTRUCTW
+#define  LPTVINSERTSTRUCTW    LPTV_INSERTSTRUCTW
+#endif
+
+#define TV_INSERTSTRUCT         TVINSERTSTRUCT
+#define LPTV_INSERTSTRUCT       LPTVINSERTSTRUCT
+
+
+#define TVINSERTSTRUCTA_V1_SIZE CCSIZEOF_STRUCT(TVINSERTSTRUCTA, item)
+#define TVINSERTSTRUCTW_V1_SIZE CCSIZEOF_STRUCT(TVINSERTSTRUCTW, item)
+
+typedef struct tagTVINSERTSTRUCTA {
+    HTREEITEM hParent;
+    HTREEITEM hInsertAfter;
+#if (_WIN32_IE >= 0x0400)
+    union
+    {
+        TVITEMEXA itemex;
+        TV_ITEMA  item;
+    } DUMMYUNIONNAME;
+#else
+    TV_ITEMA item;
+#endif
+} TVINSERTSTRUCTA, *LPTVINSERTSTRUCTA;
+
+typedef struct tagTVINSERTSTRUCTW {
+    HTREEITEM hParent;
+    HTREEITEM hInsertAfter;
+#if (_WIN32_IE >= 0x0400)
+    union
+    {
+        TVITEMEXW itemex;
+        TV_ITEMW  item;
+    } DUMMYUNIONNAME;
+#else
+    TV_ITEMW item;
+#endif
+} TVINSERTSTRUCTW, *LPTVINSERTSTRUCTW;
+
+#ifdef UNICODE
+#define  TVINSERTSTRUCT         TVINSERTSTRUCTW
+#define  LPTVINSERTSTRUCT       LPTVINSERTSTRUCTW
+#define TVINSERTSTRUCT_V1_SIZE TVINSERTSTRUCTW_V1_SIZE
+#else
+#define  TVINSERTSTRUCT         TVINSERTSTRUCTA
+#define  LPTVINSERTSTRUCT       LPTVINSERTSTRUCTA
+#define TVINSERTSTRUCT_V1_SIZE TVINSERTSTRUCTA_V1_SIZE
+#endif
+
+#define TVM_INSERTITEMA         (TV_FIRST + 0)
+#define TVM_INSERTITEMW         (TV_FIRST + 50)
+#ifdef UNICODE
+#define  TVM_INSERTITEM         TVM_INSERTITEMW
+#else
+#define  TVM_INSERTITEM         TVM_INSERTITEMA
+#endif
+#endif
+
+////
+
+
 /***************************************************************************
     public structures
  ***************************************************************************/

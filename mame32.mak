@@ -163,10 +163,10 @@ LDFLAGS = $(LDFLAGSGLOBAL) $(LDFLAGSDEBUG)
 LDFLAGS = $(LDFLAGSGLOBAL) $(LDFLAGSOPTIMIZED)
 !endif
 
-RCFLAGS = -l 0x409 -DNDEBUG -IWin32 $(MAME_NET) $(MAME_MMX)
+RCFLAGS = -idx -l 0x409 -DNDEBUG -IWin32 $(MAME_NET) $(MAME_MMX)
 
 LIBS   = kernel32.lib user32.lib gdi32.lib comctl32.lib comdlg32.lib advapi32.lib \
-         winmm.lib shell32.lib dinput.lib dxguid.lib vfw32.lib ZLIB\zlib.lib \
+         winmm.lib shell32.lib dx\dinput.lib dx\dxguid.lib vfw32.lib ZLIB\zlib.lib \
          $(AUDIOLIBS)
 
 !ifdef MAME_NET

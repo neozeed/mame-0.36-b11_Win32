@@ -26,6 +26,7 @@
 
 #include "driver.h"
 #define WIN32_LEAN_AND_MEAN
+#define _WIN32_IE 0x400
 #include <windows.h>
 #include <shellapi.h>
 #include <windowsx.h>
@@ -86,6 +87,100 @@ int MIN_WIDTH  = DBU_MIN_WIDTH;
 int MIN_HEIGHT = DBU_MIN_HEIGHT;
 
 typedef BOOL (WINAPI *common_file_dialog_proc)(LPOPENFILENAME lpofn);
+
+/////
+#if _MSC_VER < 1200
+
+typedef struct tagLVHITTESTINFO
+{
+    POINT pt;
+    UINT flags;
+    int iItem;
+#if (_WIN32_IE >= 0x0300)
+    int iSubItem;    // this is was NOT in win95.  valid only for LVM_SUBITEMHITTEST
+#endif
+} LVHITTESTINFO, *LPLVHITTESTINFO;
+
+#define LPNM_TREEVIEW           LPNMTREEVIEW
+#define NM_TREEVIEW             NMTREEVIEW
+
+#define LPTV_ITEMW              LPTVITEMW
+#define LPTV_ITEMA              LPTVITEMA
+#define TV_ITEMW                TVITEMW
+#define TV_ITEMA                TVITEMA
+#define LPTV_ITEM               LPTVITEM
+#define TV_ITEM                 TVITEM
+
+typedef struct tagTVITEMA {
+    UINT      mask;
+    HTREEITEM hItem;
+    UINT      state;
+    UINT      stateMask;
+    LPSTR     pszText;
+    int       cchTextMax;
+    int       iImage;
+    int       iSelectedImage;
+    int       cChildren;
+    LPARAM    lParam;
+} TVITEMA, *LPTVITEMA;
+#define TVITEM TVITEMA
+
+typedef struct tagNMTREEVIEWA {
+    NMHDR       hdr;
+    UINT        action;
+    TVITEMA    itemOld;
+    TVITEMA    itemNew;
+    POINT       ptDrag;
+} NMTREEVIEWA, *LPNMTREEVIEWA;
+#define  NMTREEVIEW             NMTREEVIEWA
+#define  LPNMTREEVIEW           LPNMTREEVIEWA
+
+
+#define LV_FINDINFOA    LVFINDINFOA
+#define LV_FINDINFOW    LVFINDINFOW
+#define LV_FINDINFO  LVFINDINFO
+
+typedef struct tagLVFINDINFOA
+{
+    UINT flags;
+    LPCSTR psz;
+    LPARAM lParam;
+    POINT pt;
+    UINT vkDirection;
+} LVFINDINFOA, *LPFINDINFOA;
+#define  LVFINDINFO            LVFINDINFOA
+
+#define PBS_SMOOTH 0x1
+#define PBS_VERTICAL 0x4
+#define TBSTYLE_BUTTON 0x0
+#define TBSTYLE_SEP 0x1
+#define TBSTYLE_CHECK 0x2
+#define TBSTYLE_GROUP 0x4
+#define TBSTYLE_CHECKGROUP (TBSTYLE_GROUP | TBSTYLE_CHECK)
+#define TBSTYLE_DROPDOWN 0x8
+#define TBSTYLE_AUTOSIZE 0x10
+#define TBSTYLE_NOPREFIX 0x20
+#define TBSTYLE_TOOLTIPS 0x100
+#define TBSTYLE_WRAPABLE 0x200
+#define TBSTYLE_ALTDRAG 0x400
+#define TBSTYLE_FLAT 0x800
+#define TBSTYLE_LIST 0x1000
+#define TBSTYLE_CUSTOMERASE 0x2000
+#define TBSTYLE_REGISTERDROP 0x4000
+#define TBSTYLE_TRANSPARENT 0x8000
+#define TBSTYLE_EX_DRAWDDARROWS 0x1
+#define LV_HITTESTINFO LVHITTESTINFO
+#define LVS_EX_GRIDLINES        0x00000001
+#define LVS_EX_SUBITEMIMAGES    0x00000002
+#define LVS_EX_CHECKBOXES       0x00000004
+#define LVS_EX_TRACKSELECT      0x00000008
+#define LVS_EX_HEADERDRAGDROP   0x00000010
+#define LVS_EX_FULLROWSELECT    0x00000020 // applies to report mode only
+#define LVS_EX_ONECLICKACTIVATE 0x00000040
+#define LVS_EX_TWOCLICKACTIVATE 0x00000080
+
+#endif
+////
 
 /***************************************************************************
     function prototypes

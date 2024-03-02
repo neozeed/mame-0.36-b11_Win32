@@ -22,9 +22,22 @@
 #include <windowsx.h>
 #include <shlobj.h>
 #include <sys/stat.h>
+
 #include "Directories.h"
 #include "resource.h"
 #include "options.h"
+
+/////
+#if _MSC_VER < 1200
+#define LVITEM LV_ITEM
+typedef struct tagLVDISPINFO {
+    NMHDR hdr;
+    LVITEM item;
+} NMLVDISPINFO, *LPNMLVDISPINFO;
+#define LVCOLUMN LV_COLUMN
+#define  NMLVDISPINFO           NMLVDISPINFO
+#endif
+////
 
 #define MAX_DIRS 20
 

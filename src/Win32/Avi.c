@@ -44,10 +44,14 @@
 #include <sys/stat.h>
 #include <wingdi.h>
 #include <tchar.h>
-/* to shutup the warnings about functions were NOT calling in vfw.h */
-#ifdef CDECL
-#undef CDECL
-#define CDECL CLIB_DECL
+/* to shutup the warnings about functions were NOT calling in vfw.h
+https://learn.microsoft.com/en-us/cpp/overview/compiler-versions?view=msvc-170
+								 */
+#if _MSC_VER < 1400
+  #ifdef CDECL
+  #undef CDECL
+  #define CDECL CLIB_DECL
+  #endif
 #endif
 #include <vfw.h>
 
